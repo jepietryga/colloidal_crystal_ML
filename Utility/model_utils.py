@@ -53,10 +53,13 @@ def success_of_guess(y_pred,y_test,ohe):
     
     labels_list = ohe.get_feature_names_out()
 
+    f1_arr = []
     for ii in np.arange(np.size(labels_list)):
         recall = success[ii]/(success[ii]+failed_to_guess[ii])
         precision = success[ii]/(success[ii]+incorrectly_guessed[ii])
         f1 = 2*precision*recall/(precision+recall)
         print(f'{labels_list[ii]} -> Precision = {precision}, Recall = {recall}, F1 = {f1}')
+        f1_arr.append(f1)
+    print(f'Macro F={np.mean(f1_arr)}')
     accuracy = np.sum(success)/(np.shape(y_pred)[0])
     print(f'Run Accuracy : {accuracy}')
